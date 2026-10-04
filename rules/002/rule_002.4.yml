@@ -1,0 +1,31 @@
+title: Rule  - account creation on linux host
+status: experimental
+id: adb29799-d7cf-498d-8849-4e6ebd31121c
+description: this rule detects account creation on a linux host
+author: bap
+
+logsource:
+    category: process_creation
+    product: linux
+    service: auditd
+
+detection:
+    selection_binary:
+        Image|endswith:
+            -'useradd'
+
+    selection_2:
+        CommandLine|contains:
+            -'useradd'
+    condition:
+
+falsepositives:
+    - Normal administrative activity
+
+tags:
+    - attack.t1087.002
+
+references:
+    - https://attack.mitre.org/techniques/T1087/002/
+
+level: low

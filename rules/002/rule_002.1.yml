@@ -1,0 +1,38 @@
+title: Rule  - user discovery on linux host
+status: experimental
+id: adb2978c-d7cf-498d-8849-4e6ebd31121c
+description: this rule detects user discovery on a linux host
+author: bap
+
+logsource:
+    category: process_creation
+    product: linux
+    service: auditd
+
+detection:
+    selection_binary:
+        Image|{endswith}:
+            -'/bash'
+            -'/zsh'
+            -'/bash'
+
+    selection_2:
+        CommandLine|{contains}:
+            -'whoami'
+            -'id'
+            -'who'
+            -'passwd'
+            -'getent'
+            -'groups'
+    condition:
+
+falsepositives:
+    - legitamate administrative activity
+
+tags:
+    - attack.t1033
+
+references:
+    - https://attack.mitre.org/techniques/T1033/
+
+level: {}

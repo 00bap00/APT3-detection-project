@@ -1,0 +1,35 @@
+title: 001.2 - permition modification on linux host
+status: experimental
+id: 2ee6902c-09c9-452e-a972-1ea1ee33f649
+description: detects exacution of permition modifications on a linux host
+aurthor: bap
+
+logsource:
+    category: process_creation
+    product: linux
+    service: auditd
+
+detection:
+    selection_binary:
+        Image|endswith:
+            - 'chmod'
+    selection_executable_flags:
+        CommandLine|contains:
+            - '+x'
+            - '777'
+            - '755'
+            - '700'
+            - 'u+x'
+    condition: selection_binary and selection_exacutable_flags
+
+falsepositives:
+    - new software implementation
+    - maintainance windows
+
+tags:
+    - attack.t1222.002
+
+referances:
+    - https://attack.mitre.org/techniques/T1222/002/
+
+level: medium

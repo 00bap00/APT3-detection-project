@@ -1,0 +1,35 @@
+title: 001.3 - script exacution
+status: experimental
+id: 2ee1902c-09c9-452e-a992-1ea1ee33f649
+description: detects scripts being exacuted on a linux host
+author: bap
+
+logsource:
+    category: process_creation
+    product: linux
+    service: auditd
+
+detection:
+    selection_binary:
+        Image|endswith:
+            - '/sh'
+            - '/zsh'
+            - '/bash'
+    selection_suspisiouse_path:
+        CommandLine|contains:
+            - '/tmp/'
+            - '/dev/shm/'
+            - '/var/tmp'
+    condition: selection_binary and selection_suspisouse_path
+
+falsepositives:
+    - Unknown
+
+tags:
+    - attack.t1059.004
+
+references:
+    - https://attack.mitre.org/techniques/T1059/004/
+
+level: high
+

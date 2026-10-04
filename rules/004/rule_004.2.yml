@@ -1,0 +1,35 @@
+title: Rule  - local account creation
+status: experimental
+id: adb297c8-d7cf-498d-8849-4e6ebd31121c
+description: detection of local account creation on a linux host
+author: bap
+
+logsource:
+    category: process_creation
+    product: linux
+    service: auditd
+
+detection:
+    selection_binary:
+        Image|endswith:
+            -'useradd'
+            -'usermod'
+            -'sudo'
+    selection_2:
+        CommandLine|contains:
+            -'support_388945a0'
+    condition:
+
+falsepositives:
+    - Unknown
+
+tags:
+    - attack.t1136.001
+
+references:
+    - https://attack.mitre.org/techniques/T1136/001/
+
+level: medium
+
+comment: for this rule i would like to add time detection for example if this alert gets triggered outside of normal maintenance hours then it should be considered as a high alert. I would like to add this feature in the future as it would alighn better with MITRES detection recomendation for this technique and would provide more context for the alert.
+Comment: I believe it was valid to add the username support_388945a0 to the detection rule because this username is extremely uncommon on Linux hosts and is a known account name that has previously been associated with APT3 activity. That said, this may not be an appropriate alert for every environment. The username could be legitimate depending on the organisation's standard naming conventions for accounts. Therefore, the detection should be considered in the context of the environment and its expected account-naming practices.

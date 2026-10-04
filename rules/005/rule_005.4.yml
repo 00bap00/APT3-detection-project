@@ -1,0 +1,31 @@
+title: Rule  - service installation on linux host
+status: experimental
+id: adb2978c-d7cf-498d-8849-4e6ebd31121c
+description: this rule detects service installation on a linux host
+author: bap
+
+logsource:
+    category: process_creation
+    product: linux
+    service: auditd
+
+detection:
+    selection_binary:
+        Image|endswith:
+            -'mv'
+
+    selection_volatile_location:
+        CommandLine|contains:
+            -'/tmp/'
+    condition:
+
+falsepositives:
+    - Unknown
+
+tags:
+    - attack.t1543.002
+
+references:
+    - https://attack.mitre.org/techniques/T1543/002/
+
+level: {}

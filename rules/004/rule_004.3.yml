@@ -1,0 +1,34 @@
+title: Rule  - local account modification on linux host
+status: experimental
+id: adb297c8-d7cf-498d-8849-4e6ebd31121c
+description: this rule detects local account modification on a linux host
+author: bap
+
+logsource:
+    category: process_creation
+    product: linux
+    service: auditd
+
+detection:
+    selection_binary:
+        Image|endswith:
+            -'usermod'
+            -'sudo'
+            -'wheel'
+    selection_2:
+        CommandLine|contains:
+            - 
+    condition:
+
+falsepositives:
+    - Unknown
+
+tags:
+    - attack.t1098.007
+
+references:
+    - https://attack.mitre.org/techniques/T1098/007/
+
+level: medium
+
+comment: for this rule i would like to add time detection for example if this alert gets triggered outside of normal maintenance hours then it should be considered as a high alert. I would like to add this feature in the future as it would alighn better with MITRES detection recomendation for this technique and would provide more context for the alert.
