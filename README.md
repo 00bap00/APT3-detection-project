@@ -13,5 +13,5 @@ Sigma rules are designed as granular, SIEM-agnostic behavioural signals. Higher-
   /rules
 
 ## Credits
-- **APT3 emulation logs provided by [nboubakr](https://github.com/nboubakr)**
+**APT3 emulation logs provided by [nboubakr](https://github.com/nboubakr)**
   -logs where cleaned and normalised for analysis original raw logs can be found in '/raw_logs'
