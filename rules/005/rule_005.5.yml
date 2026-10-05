@@ -1,7 +1,7 @@
-title: Rule  - systemd service reload on linux host
+title: Systemctl Service Management Activity
 status: experimental
 id: adb297c8-d7cf-498d-8849-4e6ebd31121c
-description: this rule detects systemd service reload on a linux host
+description: Detects systemctl commands used to manage systemd services on a Linux host.
 author: bap
 
 logsource:
@@ -10,22 +10,29 @@ logsource:
     service: auditd
 
 detection:
-    selection_binary:
-        Image|{modifier}:
-            -
+    selection:
+        CommandLine|contains:
+            - 'systemctl start '
+            - 'systemctl stop '
+            - 'systemctl restart '
+            - 'systemctl reload '
+            - 'systemctl enable '
+            - 'systemctl disable '
+            - 'systemctl daemon-reload'
+            - 'systemctl status '
 
-    selection_2:
-        CommandLine|{modifier}:
-            -
-    condition:
+    condition: selection
 
 falsepositives:
-    - Unknown
+    - Legitimate system administration
+    - Software installation and package management
+    - Configuration management tools
+    - System maintenance
 
 tags:
-    - {mitre ID}
+    - attack.t1569.003
 
-referances:
-    - {miter page}
+references:
+    - https://attack.mitre.org/techniques/T1569/003/
 
-level: {}
+level: low
