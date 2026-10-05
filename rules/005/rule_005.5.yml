@@ -21,7 +21,8 @@ detection:
             - 'systemctl daemon-reload'
             - 'systemctl status '
 
-    condition: selection
+    condition: 
+        selection
 
 falsepositives:
     - Legitimate system administration
