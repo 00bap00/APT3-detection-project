@@ -99,13 +99,13 @@ Findings
     005.4 Service installation
           MITRE: T1543.002 - Create or Modify System Process: Systemd Service
           Evidence: 'sudo mv /tmp/my-custom.service /etc/systemd/system/my-custom.service', 'mv /tmp/my-custom.service /etc/systemd/system/my-custom.service'
-          Sigma_rule:
+          Sigma_rule: rule_005.4
 
 
     005.5 Systemd configuration reload
           MITRE: T1569.003 - System Services: Systemctl
           Evidence: 'sudo systemctl daemon-reload', 'systemctl daemon-reload'
-          Sigma_rule:
+          Sigma_rule: rule_005.5
 
     005.6 System-generated systemd activity
           MITRE:
@@ -116,7 +116,7 @@ Findings
     005.7 Systemd service enablement
           MITRE: T1569.003 - System Services: Systemctl
           Evidence: 'systemctl enable my-custom.service', 'sudo systemctl enable my-custom.service'
-          Sigma_rule:
+          Sigma_rule: rule_005.5
 
 
              =================================================================================
