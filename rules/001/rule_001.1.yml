@@ -1,13 +1,12 @@
-title: 001.1 - File Transfer Utility Exacution
+title: 001.1 - File Transfer Utility Execution
 status: experimental
 id: 2ee1902c-09c9-452e-a972-1ea1ee33f649
-description: Detection exacution of common utilitys that may be used to transfer tools or files onto a linux host
-author: bap
-
+description: Detection execution of common utilities that may be used to transfer tools or files onto a Linux host
+author: FSOC-1
 logsource:
-    category: process_creation
-    product: linux
-    service: auditd
+category: process_creation
+product: linux
+service: auditd
 
 detection:
     selection_binary:
@@ -15,16 +14,17 @@ detection:
             - '/curl'
             - '/wget'
             - '/rsync'
-    selection_volitile_paths:
-        CommandLine|contains:
-            - '/tmp/'
-            - '/dev/shm/'
-            - '/var/tmp/'
-    condition: selection_binary and selection_volitile_paths
+selection_volatile_paths:
+    CommandLine|contains:
+        - '/tmp/'
+        - '/dev/shm/'
+        - '/var/tmp/'
+condition: 
+    selection_binary and selection_volatile_paths
 
 falsepositives:
     - Legitimate administrative file transfer
-    - software installation and update activity
+    - Software installation and update activity
     - System maintenance scripts
 
 tags:
