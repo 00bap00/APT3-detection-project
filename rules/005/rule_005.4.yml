@@ -1,7 +1,7 @@
-title: Rule  - service installation on linux host
+title: Rule  - service staging on linux host
 status: experimental
 id: adb2978c-d7cf-498d-8849-4e6ebd31121c
-description: this rule detects service installation on a linux host
+description: this rule detects service staging on a linux host
 author: bap
 
 logsource:
@@ -10,17 +10,24 @@ logsource:
     service: auditd
 
 detection:
-    selection_binary:
-        Image|endswith:
-            -'mv'
-
-    selection_volatile_location:
+    selection_volatile_paths:
         CommandLine|contains:
-            -'/tmp/'
-    condition:
+            - '/tmp/'
+            - '/var/tmp/'
+            - '/dev/shm/'
 
+    selection_systemd_paths:
+        CommandLine|contains:
+            - '/etc/systemd/system/'
+            - '/usr/lib/systemd/system/'
+            - '/lib/systemd/system/'
+            - '/run/systemd/system/'
+
+    condition:
+        selection_volatile_paths and selection_systemd_paths
+        
 falsepositives:
-    - Unknown
+    - legitimate service installation or updates on a linux host
 
 tags:
     - attack.t1543.002
@@ -28,4 +35,4 @@ tags:
 references:
     - https://attack.mitre.org/techniques/T1543/002/
 
-level: {}
+level: medium
