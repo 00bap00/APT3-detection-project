@@ -3,10 +3,11 @@ status: experimental
 id: 2ee1902c-09c9-452e-a972-1ea1ee33f649
 description: Detection execution of common utilities that may be used to transfer tools or files onto a Linux host
 author: FSOC-1
+
 logsource:
-category: process_creation
-product: linux
-service: auditd
+    category: process_creation
+    product: linux
+    service: auditd
 
 detection:
     selection_binary:
