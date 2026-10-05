@@ -1,8 +1,8 @@
-title: 001.2 - permition modification on linux host
+title: 001.2 - Permission Modification on Linux Host
 status: experimental
 id: 2ee6902c-09c9-452e-a972-1ea1ee33f649
-description: detects exacution of permition modifications on a linux host
-aurthor: bap
+description: Detects execution of permission modifications on a Linux host
+author: FSOC-1
 
 logsource:
     category: process_creation
@@ -20,16 +20,17 @@ detection:
             - '755'
             - '700'
             - 'u+x'
-    condition: selection_binary and selection_exacutable_flags
+    condition:
+        selection_binary and selection_executable_flags
 
 falsepositives:
-    - new software implementation
-    - maintainance windows
+    - New software implementation
+    - Maintenance windows
 
 tags:
     - attack.t1222.002
 
-referances:
+references:
     - https://attack.mitre.org/techniques/T1222/002/
 
 level: medium
