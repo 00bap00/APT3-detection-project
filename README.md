@@ -3,6 +3,12 @@ Detection engineering project based on APT3 emulation logs. Writing granular, SI
 
 **Status:** Still in progress
 
+# quick overview found in:
+  /findings-summary.md
+
+# rules found in:
+  /rules
+
 ## Credits
 - **APT3 emulation logs:** [nboubakr](https://github.com/nboubakr)
   -logs where cleaned and normalised for analysis original raw logs can be found in '/raw_logs'
