@@ -3,6 +3,9 @@ Detection engineering project based on APT3 emulation logs. Writing granular, SI
 
 **Status:** Still in progress
 
+# Detection Philosophy
+Sigma rules are designed as granular, SIEM-agnostic behavioural signals. Higher-level context, including event frequency, temporal relationships and multi-stage attack correlation, is intended to be handled by the target SIEM.
+
 # quick overview found in:
   findings-summary.md
 
