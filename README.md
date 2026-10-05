@@ -4,7 +4,7 @@ Detection engineering project based on APT3 emulation logs. Writing granular, SI
 **Status:** Still in progress
 
 # quick overview found in:
-  /findings-summary.md
+  findings-summary.md
 
 # rules found in:
   /rules
