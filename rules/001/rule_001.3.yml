@@ -1,8 +1,8 @@
-title: 001.3 - script exacution
+title: 001.3 - Script Execution
 status: experimental
 id: 2ee1902c-09c9-452e-a992-1ea1ee33f649
-description: detects scripts being exacuted on a linux host
-author: bap
+description: Detects scripts being executed on a Linux host
+author: FSOC-1
 
 logsource:
     category: process_creation
@@ -15,12 +15,13 @@ detection:
             - '/sh'
             - '/zsh'
             - '/bash'
-    selection_suspisiouse_path:
+    selection_suspicious_path:
         CommandLine|contains:
             - '/tmp/'
             - '/dev/shm/'
             - '/var/tmp'
-    condition: selection_binary and selection_suspisouse_path
+    condition:
+        selection_binary and selection_suspicious_path
 
 falsepositives:
     - Unknown
@@ -32,4 +33,3 @@ references:
     - https://attack.mitre.org/techniques/T1059/004/
 
 level: high
-
