@@ -2,7 +2,7 @@ title: Systemctl Service Management Activity
 status: experimental
 id: adb297c8-d7cf-498d-8849-4e6ebd31121c
 description: Detects systemctl commands used to manage systemd services on a Linux host.
-author: bap
+author: FSOC-1
 
 logsource:
     category: process_creation
@@ -21,7 +21,7 @@ detection:
             - 'systemctl daemon-reload'
             - 'systemctl status '
 
-    condition: 
+    condition:
         selection
 
 falsepositives:
@@ -29,7 +29,6 @@ falsepositives:
     - Software installation and package management
     - Configuration management tools
     - System maintenance
-
 tags:
     - attack.t1569.003
 
