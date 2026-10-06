@@ -1,8 +1,8 @@
-title: Rule  - service staging on linux host
+title: Rule - Service Staging on Linux Host
 status: experimental
-id: adb2978c-d7cf-498d-8849-4e6ebd31121c
-description: this rule detects service staging on a linux host
-author: bap
+id: 64820653-b6b7-492b-a834-d400454a553f
+description: This rule detects service staging on a Linux host
+author: FSOC-1
 
 logsource:
     category: process_creation
@@ -16,19 +16,17 @@ detection:
             - '/var/tmp/'
             - '/dev/shm/'
 
-    selection_systemd_paths:
-        CommandLine|contains:
-            - '/etc/systemd/system/'
-            - '/usr/lib/systemd/system/'
-            - '/lib/systemd/system/'
-            - '/run/systemd/system/'
+selection_systemd_paths:
+    CommandLine|contains:
+        - '/etc/systemd/system/'
+        - '/usr/lib/systemd/system/'
+        - '/lib/systemd/system/'
+        - '/run/systemd/system/'
 
-    condition:
-        selection_volatile_paths and selection_systemd_paths
-        
+condition: selection_volatile_paths and selection_systemd_paths
+
 falsepositives:
-    - legitimate service installation or updates on a linux host
-
+    - Legitimate service installation or updates on a Linux host
 tags:
     - attack.t1543.002
 
