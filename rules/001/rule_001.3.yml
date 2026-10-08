@@ -1,14 +1,16 @@
 title: 001.3 - Script Execution
-status: experimental
 id: 2ee1902c-09c9-452e-a992-1ea1ee33f649
+status: experimental
 description: Detects scripts being executed on a Linux host
+references:
+    - https://attack.mitre.org/techniques/T1059/004/
 author: FSOC-1
-
+tags:
+    - attack.t1059.004
+    - attack.execution
 logsource:
     category: process_creation
     product: linux
-    service: auditd
-
 detection:
     selection_binary:
         Image|endswith:
@@ -20,16 +22,7 @@ detection:
             - '/tmp/'
             - '/dev/shm/'
             - '/var/tmp'
-    condition:
-        selection_binary and selection_suspicious_path
-
+    condition: selection_binary and selection_suspicious_path
 falsepositives:
     - Unknown
-
-tags:
-    - attack.t1059.004
-
-references:
-    - https://attack.mitre.org/techniques/T1059/004/
-
-level: high
+level: informational
