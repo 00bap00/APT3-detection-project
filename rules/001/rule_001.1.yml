@@ -1,37 +1,47 @@
 title: 001.1 - File Transfer Utility Execution
-status: experimental
 id: 2ee1902c-09c9-452e-a972-1ea1ee33f649
+status: experimental
 description: Detection execution of common utilities that may be used to transfer tools or files onto a Linux host
+references:
+    - https://attack.mitre.org/techniques/T1105/
 author: FSOC-1
-
+tags:
+    - attack.t1105
+    - attack.command-and-control
 logsource:
     category: process_creation
     product: linux
-    service: auditd
-
 detection:
     selection_binary:
         Image|endswith:
             - '/curl'
             - '/wget'
             - '/rsync'
-selection_volatile_paths:
-    CommandLine|contains:
-        - '/tmp/'
-        - '/dev/shm/'
-        - '/var/tmp/'
-condition: 
-    selection_binary and selection_volatile_paths
-
+            - '/scp'
+            - '/sftp'
+            - '/ftp'
+            - '/tftp'
+    selection_volatile_paths:
+        CommandLine|contains:
+            - '/tmp/'
+            - '/dev/shm/'
+            - '/var/tmp/'
+    selection_remote_url:
+        CommandLine|contains:
+            - 'http://'
+            - 'https://'
+            - 'ftp://'
+            - 'sftp://'
+            - 'scp://'
+            - 'tftp://'
+            - 'rsync://'
+    selection_remote_host:
+        CommandLine|contains|all:
+            - '@'
+            - ':'
+    condition: selection_binary and (selection_volatile_paths or selection_remote_url or selection_remote_host)
 falsepositives:
     - Legitimate administrative file transfer
     - Software installation and update activity
     - System maintenance scripts
-
-tags:
-    - attack.t1105
-
-references:
-    - https://attack.mitre.org/techniques/T1105/
-
-level: medium
+level: informational
