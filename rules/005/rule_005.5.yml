@@ -1,14 +1,16 @@
-title: Systemctl Service Management Activity
-status: experimental
+title: 005.5 - Systemctl Service Management Activity
 id: adb297c8-d7cf-498d-8849-4e6ebd31121c
+status: experimental
 description: Detects systemctl commands used to manage systemd services on a Linux host.
+references:
+    - https://attack.mitre.org/techniques/T1569/003/
 author: FSOC-1
-
+tags:
+    - attack.t1569.003
+    - attack.execution
 logsource:
     category: process_creation
     product: linux
-    service: auditd
-
 detection:
     selection:
         CommandLine|contains:
@@ -18,21 +20,12 @@ detection:
             - 'systemctl reload '
             - 'systemctl enable '
             - 'systemctl disable '
-            - 'systemctl daemon-reload'
+            - 'systemctl daemon-reload '
             - 'systemctl status '
-
-    condition:
-        selection
-
+    condition: selection
 falsepositives:
     - Legitimate system administration
     - Software installation and package management
     - Configuration management tools
     - System maintenance
-tags:
-    - attack.t1569.003
-
-references:
-    - https://attack.mitre.org/techniques/T1569/003/
-
 level: low
